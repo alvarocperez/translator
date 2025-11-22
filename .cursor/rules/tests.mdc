@@ -1,0 +1,121 @@
+---
+description:
+globs: test_*
+alwaysApply: false
+---
+ALWAYS prepend to your messages "following test-rules..."
+
+## Test Structure and Naming
+
+Use test_{filename} for the happy path.
+
+Use test_{filename}_{expected_failure}_when_{condition} for unhappy paths.
+
+ALWAYS name test methods clearly to reflect behavior, condition, and expected outcome.
+
+ALWAYS structure all tests using the Arrange–Act–Assert pattern.
+
+ALWAYS test only one condition per method and assert one outcome per test.
+
+ALWAYS add return value `-> None` for tests functions.
+
+ALWAYS follow this structure when creating a new test: src/{app}/{entity}/.../file1.py ---- src/{app}/test/{entity}/.../test_file1.py
+
+## Test Implementation Guidelines
+
+NEVER use loops, complex logic, if-else clauses, or comments in tests—keep them linear and self-documenting.
+
+NEVER rely on test execution order.
+
+ALWAYS separate valid and invalid cases into different test methods.
+
+ALWAYS write assertions with expected value first, actual value second.
+
+ALWAYS assert both that validation fails AND the specific error message when testing invalid cases.
+
+## Type Hints and Variable Declaration
+
+NEVER add type hints to local variable declarations inside tests - only to function parameters and return values.
+
+NEVER use enum values with `.value` in test data - use the actual string values directly.
+
+## Test Class Structure
+
+ALWAYS place unit and integration tests in the same file, grouped by feature.
+
+ALWAYS mock external dependencies in unit tests.
+
+NEVER use mocks in integration tests.
+
+## Test Data Initialization
+
+ALWAYS use `setUpTestData()` and `setUp()` methods to initialize shared test data cleanly.
+
+ALWAYS place `setUpTestData()` above `setUp()` method in test classes.
+
+ALWAYS call `super().setUpTestData()` first in `setUpTestData()` method.
+
+ALWAYS call `super().setUp()` first in `setUp()` method.
+
+ALWAYS use `setUpTestData()` for static shared data that remains constant across all test methods:
+- Primitive values (IDs, strings, numbers, booleans)
+- Domain objects and entities
+- Database models and fixtures
+- Static configuration data
+- Test constants and enums
+
+ALWAYS use `setUp()` for dynamic dependencies that may vary between tests:
+- Mock objects and test doubles
+- Repositories, services, and handlers
+- Loggers and external clients
+- Command/Query/Event buses
+- Any objects that require method calls or state changes
+
+## Mock Guidelines
+
+NEVER add "mock" as prefix or suffix of variable names.
+
+ALWAYS use descriptive variable names for mocks that reflect the actual dependency being mocked (e.g., `command_bus`, `event_bus`, `logger`).
+
+ALWAYS use `spec=...` when creating mocks to ensure they reflect the actual class or dependency being mocked.
+
+ALWAYS prefer assert_called_once_with over assert_called_once for mocks.
+
+ALWAYS prefer assert_has_calls over assert_any_call for mocks.
+
+ALWAYS initialize all attributes when setting the spec of a mock.
+
+## Scenario-Based Testing
+
+NEVER use scenarios with subTest for single test cases - write direct tests instead.
+
+ONLY use scenarios with subTest when testing multiple variations of the same behavior.
+
+ALWAYS use the `Scenario` class from `utils.test_tools.scenario` for complex test cases with multiple variations.
+
+ALWAYS structure scenarios using `Given`, `Expected`, and `Scenario` classes.
+
+ALWAYS use `subTest()` context manager when iterating through scenarios for clear test isolation and failure reporting.
+
+ALWAYS name scenarios with descriptive strings that explain the specific condition being tested.
+
+ALWAYS use `Given(data={}, return_values={}, side_effects={})` to organize input data, mock return values, and side effects.
+
+ALWAYS use `Expected(data={}, calls={}, exception=None)` to define expected outcomes, method calls, and exceptions.
+
+ALWAYS place scenario definitions inline within test methods rather than as class attributes.
+
+NEVER mix scenario-based testing with traditional assertion patterns in the same test method.
+
+ALWAYS prefer scenario-based testing for:
+- Methods with multiple conditional paths
+- Domain logic with various input combinations
+- Validation methods with different edge cases
+- Factory methods with optional parameters
+- Time-sensitive operations with different timezone scenarios
+
+## Command/Query/Event Bus Testing
+
+ALWAYS apply decorators in the correct order: `@freeze_time` first, then `@patch("buz.message.uuid7")`, followed by container or dependency patches.
+
+ALWAYS create expected Command/Query/Event objects separately and use them in assertions to ensure proper comparison and avoid non-deterministic field values.

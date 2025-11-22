@@ -1,0 +1,39 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+ALWAYS prepend to your messages "following python-standards..."
+
+NEVER comment code—use clear names and structure instead.
+
+ALWAYS add type hints to all function arguments and return values.
+
+ALWAYS suffix custom exceptions with Exception.
+
+ALWAYS prefix test classes with Test, and integration tests with TestIntegration.
+
+ALWAYS prefix private boolean functions with is_ or has_.
+
+ALWAYS use built-in types for collections (e.g., list[int], dict[str, str]).
+
+NEVER import collection types from typing.
+
+ALWAYS type function arguments and return values.
+
+ALWAYS specify model argument names explicitly.
+
+ALWAYS use "| None" for optional types. NEVER use the type "Optional" except in events.
+
+ALWAYS prefer Any or Union for flexible *args, **kwargs.
+
+NEVER use "Service" suffix—ALWAYS name services with verbs (e.g., UserCreator).
+
+ALWAYS define private functions with descriptive names and place them below their first usage.
+
+ALWAYS use explicit boolean comparisons for boolean variables (e.g., "if is_active is True" instead of "if is_active")
+
+ALWAYS use explicit boolean comparisons for existence checks (e.g., "if len(special_list) > 0" instead of "if special_list", and "if foo is not None" instead of "if foo")
+
+ALWAYS use aware datetimes such as datetime(2100, 6, 15, 14, 00, 59, tzinfo=ZoneInfo(utc))
