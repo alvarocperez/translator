@@ -22,6 +22,8 @@ _CURATION_SOURCE_DISTRIBUTION: Final[dict[str, float]] = {
     'dgt': 0.30,
     'eubookshop': 0.30,
 }
+_CURATION_SOURCE_LANGUAGE: Final[str] = 'es'
+_CURATION_TARGET_LANGUAGE: Final[str] = 'en'
 
 
 def _process_dataset(dataset_name: str) -> bool:
@@ -76,6 +78,8 @@ def _curate_datasets() -> bool:
     try:
         curation_config = CurationConfig(
             input_datasets=input_datasets,
+            expected_source_language=_CURATION_SOURCE_LANGUAGE,
+            expected_target_language=_CURATION_TARGET_LANGUAGE,
             output_directory=_CURATION_OUTPUT_DIR,
             min_quality_score=_CURATION_MIN_QUALITY_SCORE,
             use_language_detection=_CURATION_USE_LANGUAGE_DETECTION,

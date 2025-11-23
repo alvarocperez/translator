@@ -6,13 +6,13 @@ from pathlib import Path
 class CurationConfig:
     input_datasets: dict[str, Path]
     output_directory: Path
+    expected_source_language: str
+    expected_target_language: str
     min_quality_score: float = 70.0
     ngram_size_for_dedup: int = 5
     use_language_detection: bool = True
     fasttext_model_path: Path | None = None
     min_language_confidence: float = 0.9
-    expected_source_language: str = 'en'
-    expected_target_language: str = 'es'
     source_distribution: dict[str, float] | None = None
     max_total_samples: int | None = None
     train_ratio: float = 0.98
